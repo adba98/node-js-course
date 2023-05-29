@@ -54,9 +54,21 @@ const usersPut = (req = request, res = response) => {
   res.json(user);
 };
 
+const usersDelete = (req = request, res = response) => {
+  const { id } = req.params;
+
+  const user = searchUser(+id);
+  if (!user) return res.status(404).send('User not found');
+
+  const index = users.indexOf(user);
+  users.splice(index, 1);
+  res.json(users);
+};
+
 module.exports = {
   usersGet,
   usersGetById,
   usersPut,
   usersPost,
+  usersDelete,
 };
